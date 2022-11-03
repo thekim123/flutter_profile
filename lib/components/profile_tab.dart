@@ -8,22 +8,44 @@ class ProfileTab extends StatefulWidget {
   State<ProfileTab> createState() => _ProfileTabState();
 }
 
-class _ProfileTabState extends State<ProfileTab> {
+class _ProfileTabState extends State<ProfileTab> with SingleTickerProviderStateMixin {
+
+  TabController? _tabController;
+
+  // ProfileTab 그림이 그려질 때 단 한번만 실행되는 함수
+  @override
+  void initState() {
+    super.initState();
+    _tabController = new TabController(length: 2, vsync: this);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         _buildTabBar(),
-        _buildTabBarView(),
+        Expanded(child: _buildTabBarView()),
       ],
     );
   }
 
   Widget _buildTabBar(){
-    return SizedBox();
+    return TabBar(
+
+      controller: _tabController,
+      tabs: [
+      Tab(icon: Icon(Icons.directions_car)),
+      Tab(icon: Icon(Icons.directions_transit)),
+    ],);
   }
 
   Widget _buildTabBarView(){
-    return SizedBox();
+    return TabBarView(
+    controller: _tabController,
+    children: [
+      Container(color: Colors.green),
+      Container(color: Colors.red),
+
+    ]);
   }
 }
