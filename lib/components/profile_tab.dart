@@ -31,7 +31,6 @@ class _ProfileTabState extends State<ProfileTab> with SingleTickerProviderStateM
 
   Widget _buildTabBar(){
     return TabBar(
-
       controller: _tabController,
       tabs: [
       Tab(icon: Icon(Icons.directions_car)),
@@ -43,7 +42,19 @@ class _ProfileTabState extends State<ProfileTab> with SingleTickerProviderStateM
     return TabBarView(
     controller: _tabController,
     children: [
-      Container(color: Colors.green),
+      GridView.builder(
+        itemCount: 20,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 3,
+        crossAxisSpacing: 10,
+        mainAxisSpacing: 10,
+      ),
+        itemBuilder: (context, index){
+        return Image.network(
+          "https://picsum.photos/id/${index+1}/200/200",
+          scale: 0.1,);
+        },
+      ),
       Container(color: Colors.red),
 
     ]);
