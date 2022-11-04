@@ -27,19 +27,26 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        endDrawer: ProfileDrawer(),
-        appBar: _buildProfileAppBar(),
-        body: Column(
-          children: [
-            SizedBox(height: 20),
-            ProfileHeader(),
-            SizedBox(height: 20),
-            ProfileCountInfo(),
-            SizedBox(height: 20),
-            ProfileButtons(),
-            Expanded(child: ProfileTab()),
-          ],
-        ));
+      endDrawer: ProfileDrawer(),
+      appBar: _buildProfileAppBar(),
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            SliverList(
+              delegate: SliverChildListDelegate([
+                    SizedBox(height: 20),
+                    ProfileHeader(),
+                    SizedBox(height: 20),
+                    ProfileCountInfo(),
+                    SizedBox(height: 20),
+                    ProfileButtons(),
+                  ]),
+            ),
+          ];
+        },
+            body: ProfileTab(),
+      ),
+    );
   }
 
   AppBar _buildProfileAppBar() {
